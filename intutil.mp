@@ -1,5 +1,16 @@
 export min, max
 
+# comment
+
+memory str "string"
+
+proc P [
+  a:proc[i64]i64,
+  b:i64
+]
+begin
+end proc
+
 proc main
 begin
 	if max[5, 2] != 5 begin
@@ -31,24 +42,18 @@ end proc
 
 proc max[a, b] i64
 begin
-	if a >= b
-	begin
+	if a >= b begin
 		return a
-	end 
-	else
-	begin
+	end else begin
 		return b
 	end if
 end proc
 
 proc min[a, b] i64
 begin
-	if a <= b
-	begin
+	if a <= b begin
 		return a
-	end 
-	else
-	begin
+	end else begin
 		return b
 	end if
 end proc

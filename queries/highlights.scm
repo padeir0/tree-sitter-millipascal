@@ -3,11 +3,45 @@
     "while"  "if"     "else"   "elseif"
     "or"     "and"    "not"    "memory"
     "exit"   "import" "from"   "export"
-	  "const"  "sizeof"
+	  "const"  "sizeof" "return"
 ] @keyword
 
+(type) @type
+(basicType) @type.builtin
+
 [
-    "i8"     "i16"    "i32"    "i64"
-    "u8"     "u16"    "u32"    "u64"
-    "bool"   "ptr"
-] @type
+  ":"
+  "."
+  ","
+  ";"
+  "::"
+] @punctuation.delimiter
+
+[
+  "("
+  ")"
+  "["
+  "]"
+] @punctuation.bracket
+
+[
+
+	"="   "=="  "!="  ">"   ">="  "<"
+	"<="  "+"   "-"   "*"   "/"   "%"
+	"-="  "+="  "*="  "/="  "%=" 
+	"@"   "~"   "&&"  "||"  "!"
+	"|^"  ">>"  "<<"
+] @operator
+
+[
+  (string)
+] @string
+
+[
+  (number)
+  (char)
+  "true"
+  "false"
+] @constant
+
+(comment) @comment

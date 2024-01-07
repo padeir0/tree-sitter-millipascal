@@ -234,7 +234,7 @@
           "named": true
         },
         {
-          "type": "inStr",
+          "type": "inChar",
           "named": true
         }
       ]
@@ -1077,23 +1077,7 @@
     "named": false
   },
   {
-    "type": "\\\"",
-    "named": false
-  },
-  {
-    "type": "\\'",
-    "named": false
-  },
-  {
-    "type": "\\n",
-    "named": false
-  },
-  {
-    "type": "\\r",
-    "named": false
-  },
-  {
-    "type": "\\t",
+    "type": "\\",
     "named": false
   },
   {
@@ -1115,6 +1099,10 @@
   {
     "type": "bool",
     "named": false
+  },
+  {
+    "type": "comment",
+    "named": true
   },
   {
     "type": "const",
@@ -1189,6 +1177,10 @@
     "named": false
   },
   {
+    "type": "inChar",
+    "named": true
+  },
+  {
     "type": "inStr",
     "named": true
   },
@@ -1202,6 +1194,10 @@
   },
   {
     "type": "memory",
+    "named": false
+  },
+  {
+    "type": "n",
     "named": false
   },
   {
@@ -1225,6 +1221,10 @@
     "named": false
   },
   {
+    "type": "r",
+    "named": false
+  },
+  {
     "type": "return",
     "named": false
   },
@@ -1242,6 +1242,10 @@
   },
   {
     "type": "ss",
+    "named": false
+  },
+  {
+    "type": "t",
     "named": false
   },
   {

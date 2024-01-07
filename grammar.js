@@ -1,8 +1,13 @@
 module.exports = grammar({
   name: 'millipascal',
 
-   word: $ => $.id,
-   rules: {
+  word: $ => $.id,
+
+  extras: $ => [
+    $.comment,
+    /\s/
+  ],
+  rules: {
     source_file: $ => seq(
       repeat($.coupling),
       repeat($.symbol),
@@ -97,7 +102,7 @@ module.exports = grammar({
       'else', $.block
     ),
 
-    
+  
     Return: $ => prec.right(1, seq(
       'return', optional($.exprList)
     )),
@@ -155,8 +160,8 @@ module.exports = grammar({
     literal: $ => choice(
       'true', 'false', $.number, $.char
     ),
-    
-    id: $ => /[a-z_][a-zA-Z0-9_]*/,
+  
+    id: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
     digits: $ => /[0-9]/,
     decDigits: $ => /[0-9_]/,
     hexDigits: $ => /[0-9a-fA-F_]/,
@@ -178,11 +183,12 @@ module.exports = grammar({
       $.decimal, $.hexadecimal, $.binary
     ),
 
-    escapes: $ => choice(
-      '\\"', '\\\'', '\\n', '\\t', '\\r'
-    ),
+    escapes: $ => seq('\\', choice('"', "'", 'n', 't', 'r')),
     string: $ => seq('"', repeat(choice($.inStr, $.escapes)), '"'),
-    inStr: $ => /[^"\\]/,
-    char: $ => seq("'", choice($.inStr, $.escapes), "'"),
+    inStr: $ => token.immediate(prec(1, /[^"\\]+/)),
+    inChar: $ => token.immediate(prec(1, /[^"\\]/)),
+    char: $ => seq("'", choice($.inChar, $.escapes), "'"),
+
+    comment: $ => token(seq('#', /.*/))
   }
 });
