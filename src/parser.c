@@ -13514,7 +13514,7 @@ extern "C" {
 #define extern __declspec(dllexport)
 #endif
 
-extern const TSLanguage *tree_sitter_Millipascal(void) {
+extern const TSLanguage *tree_sitter_millipascal(void) {
   static const TSLanguage language = {
     .version = LANGUAGE_VERSION,
     .symbol_count = SYMBOL_COUNT,
