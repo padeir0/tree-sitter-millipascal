@@ -1,5 +1,5 @@
 module.exports = grammar({
-  name: 'Millipascal',
+  name: 'millipascal',
 
    word: $ => $.id,
    rules: {
