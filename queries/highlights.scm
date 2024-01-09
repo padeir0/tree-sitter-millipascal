@@ -3,7 +3,7 @@
     "while"  "if"     "else"   "elseif"
     "or"     "and"    "not"    "memory"
     "exit"   "import" "from"   "export"
-	  "const"  "sizeof" "return"
+	  "const"  "sizeof" "return" "set"
 ] @keyword
 
 (type) @type
