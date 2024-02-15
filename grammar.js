@@ -36,7 +36,7 @@ module.exports = grammar({
       'const', $.id, $.number,
     ),
     memory: $ => seq(
-      'memory', $.id, choice($.number, $.string),
+      'data', $.id, choice($.number, $.string),
     ),
 
     procedure: $ => seq(

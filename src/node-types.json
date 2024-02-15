@@ -1109,6 +1109,10 @@
     "named": false
   },
   {
+    "type": "data",
+    "named": false
+  },
+  {
     "type": "decDigits",
     "named": true
   },
@@ -1190,10 +1194,6 @@
   },
   {
     "type": "ll",
-    "named": false
-  },
-  {
-    "type": "memory",
     "named": false
   },
   {

@@ -2,7 +2,7 @@ export min, max
 
 # comment
 
-memory str "string"
+data str "string"
 
 proc P [
   a:proc[i64]i64,

@@ -161,7 +161,7 @@
       "members": [
         {
           "type": "STRING",
-          "value": "memory"
+          "value": "data"
         },
         {
           "type": "SYMBOL",

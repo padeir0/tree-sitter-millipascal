@@ -1,7 +1,7 @@
 [
     "var"    "proc"   "begin"  "end"
     "while"  "if"     "else"   "elseif"
-    "or"     "and"    "not"    "memory"
+    "or"     "and"    "not"    "data"
     "exit"   "import" "from"   "export"
 	  "const"  "sizeof" "return" "set"
 ] @keyword
