@@ -4,6 +4,7 @@
     "or"     "and"    "not"    "data"
     "exit"   "import" "from"   "export"
 	  "const"  "sizeof" "return" "set"
+	  "attr"
 ] @keyword
 
 (type) @type
@@ -25,7 +26,6 @@
 ] @punctuation.bracket
 
 [
-
 	"="   "=="  "!="  ">"   ">="  "<"
 	"<="  "+"   "-"   "*"   "/"   "%"
 	"-="  "+="  "*="  "/="  "%=" 

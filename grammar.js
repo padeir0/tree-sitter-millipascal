@@ -10,13 +10,15 @@ module.exports = grammar({
   rules: {
     source_file: $ => seq(
       repeat($.coupling),
-      repeat($.symbol),
+      repeat($.attrSymbol),
     ),
     coupling: $ => choice(
       $.import, $.fromImport, $.export
     ),
+    attrSymbol: $ => seq(optional($.attr), $.symbol),
+    attr: $ => seq('attr', $.idList),
     symbol: $ => choice(
-      $.procedure, $.memory, $.const
+      $.procedure, $.data, $.const
     ),
 
     import: $ => seq(
@@ -33,11 +35,28 @@ module.exports = grammar({
     ),
 
     const: $ => seq(
-      'const', $.id, $.number,
+      'const', choice($.singleConst, $.multipleConst),
     ),
-    memory: $ => seq(
-      'data', $.id, choice($.number, $.string),
+    singleConst: $ => seq($.id, '=', $.expr,),
+    multipleConst: $ => seq(
+      'begin',
+      repeat(seq($.singleConst, optional(';'))),
+      'end',
+      'const',
     ),
+
+    data: $ => seq(
+      'data', choice($.singleData, $.multipleData),
+    ),
+    singleData: $ => seq($.id, choice($.dExpr, $.string, $.blob)),
+    multipleData: $ => seq(
+      'begin',
+      repeat(seq($.singleData, optional(';'))),
+      'end',
+      'data',
+    ),
+    dExpr: $ => seq('[', $.expr,']'),
+    blob: $ => seq('{', optional($.annot), $.exprList, '}'),
 
     procedure: $ => seq(
       'proc', $.id,

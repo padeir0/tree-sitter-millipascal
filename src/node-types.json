@@ -168,6 +168,40 @@
     "fields": {}
   },
   {
+    "type": "attr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "idList",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "attrSymbol",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attr",
+          "named": true
+        },
+        {
+          "type": "symbol",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "basicType",
     "named": true,
     "fields": {}
@@ -186,6 +220,25 @@
         },
         {
           "type": "numEnding",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "blob",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "annot",
+          "named": true
+        },
+        {
+          "type": "exprList",
           "named": true
         }
       ]
@@ -300,15 +353,15 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "id",
+          "type": "multipleConst",
           "named": true
         },
         {
-          "type": "number",
+          "type": "singleConst",
           "named": true
         }
       ]
@@ -347,6 +400,40 @@
         },
         {
           "type": "import",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "dExpr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "data",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "multipleData",
+          "named": true
+        },
+        {
+          "type": "singleData",
           "named": true
         }
       ]
@@ -609,32 +696,39 @@
     }
   },
   {
-    "type": "memory",
+    "type": "multOp",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "multipleConst",
     "named": true,
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
-          "type": "id",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "string",
+          "type": "singleConst",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "multOp",
+    "type": "multipleData",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "singleData",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "name",
@@ -799,6 +893,52 @@
     }
   },
   {
+    "type": "singleConst",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "singleData",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "blob",
+          "named": true
+        },
+        {
+          "type": "dExpr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "fields": {},
@@ -807,11 +947,11 @@
       "required": false,
       "types": [
         {
-          "type": "coupling",
+          "type": "attrSymbol",
           "named": true
         },
         {
-          "type": "symbol",
+          "type": "coupling",
           "named": true
         }
       ]
@@ -881,7 +1021,7 @@
           "named": true
         },
         {
-          "type": "memory",
+          "type": "data",
           "named": true
         },
         {
@@ -1089,6 +1229,10 @@
     "named": false
   },
   {
+    "type": "attr",
+    "named": false
+  },
+  {
     "type": "begin",
     "named": false
   },
@@ -1293,11 +1437,19 @@
     "named": false
   },
   {
+    "type": "{",
+    "named": false
+  },
+  {
     "type": "|^",
     "named": false
   },
   {
     "type": "||",
+    "named": false
+  },
+  {
+    "type": "}",
     "named": false
   },
   {
