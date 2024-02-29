@@ -18,7 +18,7 @@ module.exports = grammar({
     attrSymbol: $ => seq(optional($.attr), $.symbol),
     attr: $ => seq('attr', $.idList),
     symbol: $ => choice(
-      $.procedure, $.data, $.const
+      $.procedure, $.data, $.const, $.struct,
     ),
 
     import: $ => seq(
@@ -34,6 +34,14 @@ module.exports = grammar({
       $.id, repeat(seq(',', $.id)), optional(',')
     ),
 
+    struct: $ => seq(
+      'struct', $.id, optional($.size),
+      'begin', repeat($.field), 'end'
+    ),
+    size: $ => seq('[', $.expr, ']'),
+    field: $ => seq($.id, optional($.annot), optional($.offset)),
+    offset: $ => seq('{', $.expr, '}'),
+
     const: $ => seq(
       'const', choice($.singleConst, $.multipleConst),
     ),
@@ -41,29 +49,27 @@ module.exports = grammar({
     multipleConst: $ => seq(
       'begin',
       repeat(seq($.singleConst, optional(';'))),
-      'end',
-      'const',
+      'end'
     ),
 
     data: $ => seq(
-      'data', choice($.singleData, $.multipleData),
+      'data', choice($.singleData, $.multipleData, $.typed),
     ),
     singleData: $ => seq($.id, choice($.dExpr, $.string, $.blob)),
     multipleData: $ => seq(
       'begin',
       repeat(seq($.singleData, optional(';'))),
-      'end',
-      'data',
+      'end'
     ),
     dExpr: $ => seq('[', $.expr,']'),
     blob: $ => seq('{', optional($.annot), $.exprList, '}'),
+    typed: $ => $.annot,
 
     procedure: $ => seq(
       'proc', $.id,
       optional(seq($.args, optional($.rets))),
       optional($.vars),
-      $.block,
-      'proc'
+      $.block
     ),
     args: $ => seq(
       '[', optional($.declList),']'
@@ -79,10 +85,10 @@ module.exports = grammar({
     declList: $ => seq(
       $.decl, repeat(seq(',', $.decl)), optional(',')
     ),
-    decl: $ => seq($.id, optional($.annot)),
+    decl: $ => seq($.idList, $.annot),
     annot: $ => seq(':', $.type),
 
-    type: $ => choice($.basicType, $.procType),
+    type: $ => choice($.basicType, $.procType, $.tName),
     procType: $ => prec.right(1, seq(
       'proc', '[', optional($.typeList), ']', optional($.procTypeRet)
     )),
@@ -95,6 +101,7 @@ module.exports = grammar({
       'u8', 'u16', 'u32', 'u64',
       'ptr', 'bool'
     ),
+    tName: $ => prec.right(1, seq($.name, optional(seq('.', $.id)))),
 
     block: $ => seq('begin', repeat($.codeSemicolon),'end'),
     codeSemicolon: $ => seq($.code, optional(';')),
@@ -108,11 +115,11 @@ module.exports = grammar({
     ),
 
     While: $ => seq(
-      'while', $.expr, $.block, 'while'
+      'while', $.expr, $.block
     ),
     If: $ => seq(
       'if', $.expr, $.block,
-      repeat($.Elseif), optional($.Else), 'if'
+      repeat($.Elseif), optional($.Else)
     ),
     Elseif: $ => seq(
       'elseif', $.expr, $.block
@@ -163,12 +170,14 @@ module.exports = grammar({
       $.conversion,
       $.deref,
       $.call,
-      $.propertyAccess,
+      $.dotAccess,
+      $.arrowAccess
     ),
     conversion: $ => $.annot,
     call: $ => seq('[', optional($.exprList), ']'),
     deref: $ => seq('@', $.type),
-    propertyAccess: $ => seq('.', $.id),
+    dotAccess: $ => seq('.', $.id),
+    arrowAccess: $ => seq('->', $.id),
 
     factor: $ => choice(
       $.name, $.literal, $.nestedExpr,

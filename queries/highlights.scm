@@ -4,7 +4,7 @@
     "or"     "and"    "not"    "data"
     "exit"   "import" "from"   "export"
 	  "const"  "sizeof" "return" "set"
-	  "attr"
+	  "attr"   "struct"
 ] @keyword
 
 (type) @type
