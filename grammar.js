@@ -17,101 +17,129 @@ module.exports = grammar({
     ),
     attrSymbol: $ => seq(optional($.attr), $.symbol),
     attr: $ => seq('attr', $.idList),
-    symbol: $ => choice(
-      $.procedure, $.data, $.const, $.struct,
-    ),
-
-    import: $ => seq(
-      'import', $.idList
-    ),
-    fromImport: $ => seq(
-      'from', $.id, 'import', $.idList
-    ),
-    export: $ => seq(
-      'export', $.idList
-    ),
     idList: $ => seq(
       $.id, repeat(seq(',', $.id)), optional(',')
     ),
-
-    struct: $ => seq(
-      'struct', $.id, optional($.size),
-      'begin', repeat($.field), 'end'
+    symbol: $ => choice(
+      $.procedure, $.data, $.const, $.typeDef,
     ),
-    size: $ => seq('[', $.expr, ']'),
-    field: $ => seq($.id, optional($.annot), optional($.offset)),
-    offset: $ => seq('{', $.expr, '}'),
 
+    import: $ => seq(
+      'import', $.items
+    ),
+    fromImport: $ => seq(
+      'from', $.id, 'import', $.items
+    ),
+    export: $ => seq(
+      'export', $.items
+    ),
+    items : $ => choice($.aliasList, 'all'),
+    aliasList: $ => seq(
+      $.alias, repeat(seq(',', $.alias)), optional(',')
+    ),
+    alias: $ => seq($.id, optional(seq('as', $.id))),
+
+
+    typeDef: $ => seq(
+      'type', choice($.singleType, $.multipleType),
+    ),
+    singleType: $ => seq($.id, choice('as', 'is'), $.type),
+    multipleType: $ => seq(
+      'begin',
+      repeat(seq($.singleType, ';')),
+      'end'
+    ),
     const: $ => seq(
       'const', choice($.singleConst, $.multipleConst),
     ),
     singleConst: $ => seq($.id, '=', $.expr,),
     multipleConst: $ => seq(
       'begin',
-      repeat(seq($.singleConst, optional(';'))),
+      repeat(seq($.singleConst, ';')),
       'end'
     ),
 
     data: $ => seq(
-      'data', choice($.singleData, $.multipleData, $.typed),
+      'data', choice($.singleData, $.multipleData),
     ),
-    singleData: $ => seq($.id, choice($.dExpr, $.string, $.blob)),
+    singleData: $ => seq(
+      $.id, optional($.annot), choice($.dExpr, $.string, $.blob)
+    ),
     multipleData: $ => seq(
       'begin',
-      repeat(seq($.singleData, optional(';'))),
+      repeat(seq($.singleData, ';')),
       'end'
     ),
-    dExpr: $ => seq('[', $.expr,']'),
+    dExpr: $ => seq('[', optional($.expr),']'),
     blob: $ => seq('{', optional($.annot), $.exprList, '}'),
-    typed: $ => $.annot,
 
     procedure: $ => seq(
       'proc', $.id,
-      optional(seq($.args, optional($.rets))),
+      optional(choice($.annotatted, $.direct)),
       optional($.vars),
       $.block
-    ),
-    args: $ => seq(
-      '[', optional($.declList),']'
     ),
     vars: $ => seq(
       'var', $.declList
     ),
-    rets: $ => $.typeList,
-    typeList: $ => seq(
-      $.type, repeat(seq(',', $.type)), optional(',')
-    ),
-
     declList: $ => seq(
       $.decl, repeat(seq(',', $.decl)), optional(',')
     ),
     decl: $ => seq($.idList, $.annot),
     annot: $ => seq(':', $.type),
 
-    type: $ => choice($.basicType, $.procType, $.tName),
-    procType: $ => prec.right(1, seq(
-      'proc', '[', optional($.typeList), ']', optional($.procTypeRet)
-    )),
+    annotatted: $ => seq(
+      $.annot, optional(seq($.aargs, optional($.rets)))
+    ),
+    aargs: $ => seq(
+      '[', optional($.aDeclList),']'
+    ),
+    aDeclList: $ => seq(
+      $.aDecl, repeat(seq(',', $.aDecl)), optional(',') 
+    ),
+    aDecl: $ => seq($.id, optional($.annot)),
+
+    direct: $ => seq($.dArgs, optional($.rets)),
+    dArgs: $ => seq(
+      '[', optional($.declList),']'
+    ),
+
+    rets: $ => $.typeList,
+    typeList: $ => seq(
+      $.type, repeat(seq(',', $.type)), optional(',')
+    ),
+
+    type: $ => seq(
+      choice($.basicType, $.procType, $.name),
+      optional(seq('^', $.layout))
+    ),
+    procType: $ => seq(
+      'proc', '[', optional($.typeList), ']', $.procTypeRet
+    ),
     procTypeRet: $ => choice(
-      seq('[', $.typeList, ']'),
-      $.type,
+      seq('[', optional($.typeList), ']'),
     ),
     basicType: $ => choice(
       'i8', 'i16', 'i32', 'i64',
       'u8', 'u16', 'u32', 'u64',
-      'ptr', 'bool'
+      'ptr', 'bool', 'void'
     ),
-    tName: $ => prec.right(1, seq($.name, optional(seq('.', $.id)))),
+    layout: $ => choice($.type, $.struct),
+    struct: $ => seq(
+      'begin', optional($.size), repeat(seq($.field, ';')), 'end'
+    ),
+    size: $ => seq('[', $.expr, ']'),
+    field: $ => seq($.idList, $.annot, optional($.offset)),
+    offset: $ => seq('{', $.expr, '}'),
 
-    block: $ => seq('begin', repeat($.codeSemicolon),'end'),
-    codeSemicolon: $ => seq($.code, optional(';')),
-    code: $ => choice(
-      $.If,
-      $.While,
-      $.Return,
-      $.Set,
-      $.Exit,
-      $.expr,
+    block: $ => seq('begin', repeat($.statement),'end'),
+    statement: $ => choice(
+      seq($.If, optional(';')),
+      seq($.While, optional(';')),
+      seq($.Return, ';'),
+      seq($.Set, ';'),
+      seq($.Exit, ';'),
+      seq($.expr, ';'),
     ),
 
     While: $ => seq(
@@ -129,12 +157,12 @@ module.exports = grammar({
     ),
 
   
-    Return: $ => prec.right(1, seq(
+    Return: $ => seq(
       'return', optional($.exprList)
-    )),
-    Exit: $ => prec.right(1, seq(
-      'exit', optional($.expr)
-    )),
+    ),
+    Exit: $ => seq(
+      'exit', optional('?'), optional($.expr)
+    ),
     Set: $ => seq(
       'set', $.exprList, $.assignOp, $.expr
     ),
@@ -142,9 +170,9 @@ module.exports = grammar({
       '=', '-=', '+=', '/=', '*=', '%='
     ),
 
-    exprList: $ => prec.right(1, seq(
+    exprList: $ => seq(
       $.expr, repeat(seq(',', $.expr)), optional(',')
-    )),
+    ),
 
     expr: $ => seq($._and, repeat(seq('or', $._and))),
     _and: $ => seq($._comp, repeat(seq('and', $._comp))),
@@ -164,7 +192,7 @@ module.exports = grammar({
     _unaryPrefix: $ => seq(repeat($.prefix), $._unarySuffix),
     _unarySuffix: $ => seq($.factor, repeat($.suffix)),
     prefix: $ => choice(
-      'not', '~', '!'
+      'not', '~', '!', '@'
     ),
     suffix: $ => choice(
       $.conversion,
@@ -176,15 +204,18 @@ module.exports = grammar({
     conversion: $ => $.annot,
     call: $ => seq('[', optional($.exprList), ']'),
     deref: $ => seq('@', $.type),
-    dotAccess: $ => seq('.', $.id),
-    arrowAccess: $ => seq('->', $.id),
+    dotAccess: $ => seq('.', choice($.id, $.call)),
+    arrowAccess: $ => seq('->', choice($.id, $.call)),
 
     factor: $ => choice(
-      $.name, $.literal, $.nestedExpr,
-      seq('sizeof', $.type),
+      $.name, $.literal, $.nestedExpr, $.sizeof
     ),
     name: $ => seq($.id, optional(seq('::', $.id))),
     nestedExpr: $ => seq('(', $.expr, ')'),
+    sizeof: $ => seq(
+      'sizeof', optional('^'),
+      '[', $.type, repeat($.suffix), ']'
+    ),
     literal: $ => choice(
       'true', 'false', $.number, $.char
     ),
