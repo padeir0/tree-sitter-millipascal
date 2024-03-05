@@ -5,6 +5,7 @@
     "exit"   "import" "from"   "export"
 	  "const"  "sizeof" "return" "set"
 	  "attr"   "as"     "is"     "all"
+	  "type"
 ] @keyword
 
 (type) @type

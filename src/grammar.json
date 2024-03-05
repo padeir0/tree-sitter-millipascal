@@ -2032,6 +2032,10 @@
         },
         {
           "type": "STRING",
+          "value": "u"
+        },
+        {
+          "type": "STRING",
           "value": "us"
         },
         {

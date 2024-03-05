@@ -227,7 +227,7 @@ module.exports = grammar({
     binDigits: $ => /[01_]/,
     numEnding: $ => choice(
       'p', 's', 'ss', 'l', 'll', 
-      'us', 'uss', 'ul', 'ull',
+      'u', 'us', 'uss', 'ul', 'ull',
     ),
     decimal: $ => seq(
       $.digits, repeat($.decDigits), optional($.numEnding),

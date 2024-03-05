@@ -1,0 +1,3 @@
+#!/bin/bash
+
+find ../millipascal/test_suite/ -name '*.mp' | xargs tree-sitter parse | grep '.*\.mp.*ERROR' | tee >(wc -l)

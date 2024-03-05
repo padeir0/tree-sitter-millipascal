@@ -1748,6 +1748,10 @@
     "named": false
   },
   {
+    "type": "u",
+    "named": false
+  },
+  {
     "type": "u16",
     "named": false
   },
