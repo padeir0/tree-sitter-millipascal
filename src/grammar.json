@@ -686,19 +686,7 @@
               "members": [
                 {
                   "type": "SYMBOL",
-                  "name": "aargs"
-                },
-                {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "rets"
-                    },
-                    {
-                      "type": "BLANK"
-                    }
-                  ]
+                  "name": "aArgs"
                 }
               ]
             },
@@ -709,7 +697,7 @@
         }
       ]
     },
-    "aargs": {
+    "aArgs": {
       "type": "SEQ",
       "members": [
         {
@@ -721,7 +709,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "aDeclList"
+              "name": "idList"
             },
             {
               "type": "BLANK"
@@ -731,64 +719,6 @@
         {
           "type": "STRING",
           "value": "]"
-        }
-      ]
-    },
-    "aDeclList": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "aDecl"
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "STRING",
-                "value": ","
-              },
-              {
-                "type": "SYMBOL",
-                "name": "aDecl"
-              }
-            ]
-          }
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": ","
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        }
-      ]
-    },
-    "aDecl": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "id"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "annot"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
         }
       ]
     },

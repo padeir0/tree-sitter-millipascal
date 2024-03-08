@@ -133,41 +133,7 @@
     }
   },
   {
-    "type": "aDecl",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "annot",
-          "named": true
-        },
-        {
-          "type": "id",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "aDeclList",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "aDecl",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "aargs",
+    "type": "aArgs",
     "named": true,
     "fields": {},
     "children": {
@@ -175,7 +141,7 @@
       "required": false,
       "types": [
         {
-          "type": "aDeclList",
+          "type": "idList",
           "named": true
         }
       ]
@@ -235,15 +201,11 @@
       "required": true,
       "types": [
         {
-          "type": "aargs",
+          "type": "aArgs",
           "named": true
         },
         {
           "type": "annot",
-          "named": true
-        },
-        {
-          "type": "rets",
           "named": true
         }
       ]

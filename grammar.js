@@ -89,15 +89,11 @@ module.exports = grammar({
     annot: $ => seq(':', $.type),
 
     annotatted: $ => seq(
-      $.annot, optional(seq($.aargs, optional($.rets)))
+      $.annot, optional(seq($.aArgs))
     ),
-    aargs: $ => seq(
-      '[', optional($.aDeclList),']'
+    aArgs: $ => seq(
+      '[', optional($.idList),']'
     ),
-    aDeclList: $ => seq(
-      $.aDecl, repeat(seq(',', $.aDecl)), optional(',') 
-    ),
-    aDecl: $ => seq($.id, optional($.annot)),
 
     direct: $ => seq($.dArgs, optional($.rets)),
     dArgs: $ => seq(
