@@ -5,7 +5,7 @@
     "exit"   "import" "from"   "export"
 	  "const"  "sizeof" "return" "set"
 	  "attr"   "as"     "is"     "all"
-	  "type"
+	  "type"   "asm"
 ] @keyword
 
 (type) @type

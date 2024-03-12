@@ -77,7 +77,7 @@ module.exports = grammar({
       'proc', $.id,
       optional(choice($.annotatted, $.direct)),
       optional($.vars),
-      $.block
+      choice($.block, $.asm)
     ),
     vars: $ => seq(
       'var', $.declList
@@ -127,6 +127,25 @@ module.exports = grammar({
     size: $ => seq('[', $.expr, ']'),
     field: $ => seq($.idList, $.annot, optional($.offset)),
     offset: $ => seq('{', $.expr, '}'),
+
+    asm: $ => seq(
+      'asm', $.clobberSet,
+      'begin', repeat($.asmLine), 'end'
+    ),
+    clobberSet: $ => seq(
+      '[', $.idList, ']'
+    ),
+    asmLine: $ => choice($.label, $.instruction),
+    label: $ => seq('.', $.id, ':'),
+    instruction: $ => seq($.id, $.opList, ';'),
+    opList: $ => seq(
+      $.op, repeat(seq(',', $.op)), optional(',')
+    ),
+    op: $ => choice($.id, $.addressing, $.constOp),
+    addressing: $ => seq(
+      '[', $.opList, ']', optional(seq('@', $.id))
+    ),
+    constOp: $ => seq('{', $.expr, '}'),
 
     block: $ => seq('begin', repeat($.statement),'end'),
     statement: $ => choice(

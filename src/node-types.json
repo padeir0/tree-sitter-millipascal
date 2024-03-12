@@ -148,6 +148,25 @@
     }
   },
   {
+    "type": "addressing",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "opList",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "alias",
     "named": true,
     "fields": {},
@@ -225,6 +244,44 @@
         },
         {
           "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "asm",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "asmLine",
+          "named": true
+        },
+        {
+          "type": "clobberSet",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "asmLine",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "instruction",
+          "named": true
+        },
+        {
+          "type": "label",
           "named": true
         }
       ]
@@ -362,6 +419,21 @@
     }
   },
   {
+    "type": "clobberSet",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "idList",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "compOp",
     "named": true,
     "fields": {}
@@ -380,6 +452,21 @@
         },
         {
           "type": "singleConst",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "constOp",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expr",
           "named": true
         }
       ]
@@ -771,6 +858,25 @@
     }
   },
   {
+    "type": "instruction",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "opList",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "items",
     "named": true,
     "fields": {},
@@ -780,6 +886,21 @@
       "types": [
         {
           "type": "aliasList",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "label",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "id",
           "named": true
         }
       ]
@@ -947,6 +1068,44 @@
     }
   },
   {
+    "type": "op",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "addressing",
+          "named": true
+        },
+        {
+          "type": "constOp",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "opList",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "op",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "prefix",
     "named": true,
     "fields": {}
@@ -995,6 +1154,10 @@
       "types": [
         {
           "type": "annotatted",
+          "named": true
+        },
+        {
+          "type": "asm",
           "named": true
         },
         {
@@ -1531,6 +1694,10 @@
   },
   {
     "type": "as",
+    "named": false
+  },
+  {
+    "type": "asm",
     "named": false
   },
   {
