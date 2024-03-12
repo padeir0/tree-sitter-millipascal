@@ -129,7 +129,7 @@ module.exports = grammar({
     offset: $ => seq('{', $.expr, '}'),
 
     asm: $ => seq(
-      'asm', $.clobberSet,
+      'asm', optional($.clobberSet),
       'begin', repeat($.asmLine), 'end'
     ),
     clobberSet: $ => seq(
@@ -137,11 +137,12 @@ module.exports = grammar({
     ),
     asmLine: $ => choice($.label, $.instruction),
     label: $ => seq('.', $.id, ':'),
-    instruction: $ => seq($.id, $.opList, ';'),
+    instruction: $ => seq($.instrName, optional($.opList), ';'),
+    instrName: $ => $.id, // better highlighting
     opList: $ => seq(
       $.op, repeat(seq(',', $.op)), optional(',')
     ),
-    op: $ => choice($.id, $.addressing, $.constOp),
+    op: $ => choice($.id, $.addressing, $.constOp, $.literal),
     addressing: $ => seq(
       '[', $.opList, ']', optional(seq('@', $.id))
     ),

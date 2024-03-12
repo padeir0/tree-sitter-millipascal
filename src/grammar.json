@@ -1094,8 +1094,16 @@
           "value": "asm"
         },
         {
-          "type": "SYMBOL",
-          "name": "clobberSet"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "clobberSet"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "STRING",
@@ -1166,17 +1174,29 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "id"
+          "name": "instrName"
         },
         {
-          "type": "SYMBOL",
-          "name": "opList"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "opList"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "STRING",
           "value": ";"
         }
       ]
+    },
+    "instrName": {
+      "type": "SYMBOL",
+      "name": "id"
     },
     "opList": {
       "type": "SEQ",
@@ -1229,6 +1249,10 @@
         {
           "type": "SYMBOL",
           "name": "constOp"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "literal"
         }
       ]
     },

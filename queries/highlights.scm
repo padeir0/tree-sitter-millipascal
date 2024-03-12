@@ -50,3 +50,5 @@
 ] @constant
 
 (comment) @comment
+(label) @label
+(instrName) @function
