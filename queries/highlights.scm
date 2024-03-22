@@ -4,7 +4,7 @@
     "or"     "and"    "not"    "data"
     "exit"   "import" "from"   "export"
 	  "const"  "sizeof" "return" "set"
-	  "attr"   "as"     "is"     "all"
+	  "attr"   "as"     "all"
 	  "struct" "asm"    "do"
 ] @keyword
 
@@ -41,6 +41,10 @@
 [
   (string)
 ] @string
+
+[
+  (char)
+] @char
 
 [
   (number)
