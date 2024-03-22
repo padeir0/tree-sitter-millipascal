@@ -1,5 +1,24 @@
 [
   {
+    "type": "DoWhile",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "expr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "Else",
     "named": true,
     "fields": {},
@@ -99,15 +118,15 @@
       "required": true,
       "types": [
         {
-          "type": "assignOp",
-          "named": true
-        },
-        {
-          "type": "expr",
+          "type": "assign",
           "named": true
         },
         {
           "type": "exprList",
+          "named": true
+        },
+        {
+          "type": "incDec",
           "named": true
         }
       ]
@@ -127,21 +146,6 @@
         },
         {
           "type": "expr",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "aArgs",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "idList",
           "named": true
         }
       ]
@@ -212,19 +216,15 @@
     }
   },
   {
-    "type": "annotatted",
+    "type": "args",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
         {
-          "type": "aArgs",
-          "named": true
-        },
-        {
-          "type": "annot",
+          "type": "declList",
           "named": true
         }
       ]
@@ -238,10 +238,6 @@
       "multiple": false,
       "required": true,
       "types": [
-        {
-          "type": "call",
-          "named": true
-        },
         {
           "type": "id",
           "named": true
@@ -282,6 +278,25 @@
         },
         {
           "type": "label",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "assign",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "assignOp",
+          "named": true
+        },
+        {
+          "type": "expr",
           "named": true
         }
       ]
@@ -511,21 +526,6 @@
     }
   },
   {
-    "type": "dArgs",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "declList",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "dExpr",
     "named": true,
     "fields": {},
@@ -632,25 +632,6 @@
     }
   },
   {
-    "type": "direct",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "dArgs",
-          "named": true
-        },
-        {
-          "type": "rets",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "dotAccess",
     "named": true,
     "fields": {},
@@ -658,10 +639,6 @@
       "multiple": false,
       "required": true,
       "types": [
-        {
-          "type": "call",
-          "named": true
-        },
         {
           "type": "id",
           "named": true
@@ -858,6 +835,11 @@
     }
   },
   {
+    "type": "incDec",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "instrName",
     "named": true,
     "fields": {},
@@ -922,25 +904,6 @@
     }
   },
   {
-    "type": "layout",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "struct",
-          "named": true
-        },
-        {
-          "type": "type",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "literal",
     "named": true,
     "fields": {},
@@ -989,21 +952,6 @@
       "types": [
         {
           "type": "singleData",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "multipleType",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "singleType",
           "named": true
         }
       ]
@@ -1130,26 +1078,7 @@
     "fields": {}
   },
   {
-    "type": "procType",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "procTypeRet",
-          "named": true
-        },
-        {
-          "type": "typeList",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "procTypeRet",
+    "type": "procTTList",
     "named": true,
     "fields": {},
     "children": {
@@ -1164,7 +1093,7 @@
     }
   },
   {
-    "type": "procedure",
+    "type": "procType",
     "named": true,
     "fields": {},
     "children": {
@@ -1172,9 +1101,20 @@
       "required": true,
       "types": [
         {
-          "type": "annotatted",
+          "type": "procTTList",
           "named": true
-        },
+        }
+      ]
+    }
+  },
+  {
+    "type": "procedure",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
         {
           "type": "asm",
           "named": true
@@ -1184,11 +1124,11 @@
           "named": true
         },
         {
-          "type": "direct",
+          "type": "id",
           "named": true
         },
         {
-          "type": "id",
+          "type": "signature",
           "named": true
         },
         {
@@ -1214,6 +1154,25 @@
     }
   },
   {
+    "type": "signature",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "args",
+          "named": true
+        },
+        {
+          "type": "rets",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "singleConst",
     "named": true,
     "fields": {},
@@ -1221,6 +1180,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "annot",
+          "named": true
+        },
         {
           "type": "expr",
           "named": true
@@ -1258,25 +1221,6 @@
         },
         {
           "type": "string",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "singleType",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "id",
-          "named": true
-        },
-        {
-          "type": "type",
           "named": true
         }
       ]
@@ -1344,6 +1288,10 @@
       "required": true,
       "types": [
         {
+          "type": "DoWhile",
+          "named": true
+        },
+        {
           "type": "Exit",
           "named": true
         },
@@ -1395,10 +1343,14 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "field",
+          "named": true
+        },
+        {
+          "type": "id",
           "named": true
         },
         {
@@ -1465,7 +1417,7 @@
           "named": true
         },
         {
-          "type": "typeDef",
+          "type": "struct",
           "named": true
         }
       ]
@@ -1476,15 +1428,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "basicType",
-          "named": true
-        },
-        {
-          "type": "layout",
           "named": true
         },
         {
@@ -1493,25 +1441,6 @@
         },
         {
           "type": "procType",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "typeDef",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "multipleType",
-          "named": true
-        },
-        {
-          "type": "singleType",
           "named": true
         }
       ]
@@ -1568,7 +1497,7 @@
     "named": false
   },
   {
-    "type": "&&",
+    "type": "&",
     "named": false
   },
   {
@@ -1596,6 +1525,10 @@
     "named": false
   },
   {
+    "type": "++",
+    "named": false
+  },
+  {
     "type": "+=",
     "named": false
   },
@@ -1605,6 +1538,10 @@
   },
   {
     "type": "-",
+    "named": false
+  },
+  {
+    "type": "--",
     "named": false
   },
   {
@@ -1649,6 +1586,10 @@
   },
   {
     "type": "<",
+    "named": false
+  },
+  {
+    "type": "<->",
     "named": false
   },
   {
@@ -1756,6 +1697,10 @@
     "named": true
   },
   {
+    "type": "do",
+    "named": false
+  },
+  {
     "type": "else",
     "named": false
   },
@@ -1824,10 +1769,6 @@
     "named": true
   },
   {
-    "type": "is",
-    "named": false
-  },
-  {
     "type": "l",
     "named": false
   },
@@ -1884,15 +1825,15 @@
     "named": false
   },
   {
+    "type": "struct",
+    "named": false
+  },
+  {
     "type": "t",
     "named": false
   },
   {
     "type": "true",
-    "named": false
-  },
-  {
-    "type": "type",
     "named": false
   },
   {
@@ -1948,11 +1889,7 @@
     "named": false
   },
   {
-    "type": "|^",
-    "named": false
-  },
-  {
-    "type": "||",
+    "type": "|",
     "named": false
   },
   {

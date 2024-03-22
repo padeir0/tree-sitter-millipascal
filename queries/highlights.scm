@@ -5,7 +5,7 @@
     "exit"   "import" "from"   "export"
 	  "const"  "sizeof" "return" "set"
 	  "attr"   "as"     "is"     "all"
-	  "type"   "asm"
+	  "struct" "asm"    "do"
 ] @keyword
 
 (type) @type
@@ -17,7 +17,6 @@
   ";"
   "::"
   "?"
-  "^"
 ] @punctuation.delimiter
 
 [
@@ -35,7 +34,8 @@
 	"+"   "-"   "*"   "/"   "%"
   "+="  "-="  "*="  "/="  "%=" 
 	"@"   "~"   "->"  "."
-	"&&"  "||"  "!"   "|^"  ">>"  "<<"
+	"&"  "|"  "!"   "^"  ">>"  "<<"
+	"<->" "++" "--"
 ] @operator
 
 [
