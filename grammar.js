@@ -176,7 +176,7 @@ module.exports = grammar({
     incDec: $ => choice('++', '--'),
     assign: $ => seq($.assignOp, $.expr),
     assignOp: $ => choice(
-      '=', '-=', '+=', '/=', '*=', '%=', '<->'
+      '=', '-=', '+=', '/=', '*=', '%=', '<>'
     ),
 
     exprList: $ => seq(
