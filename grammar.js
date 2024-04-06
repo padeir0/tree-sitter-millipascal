@@ -81,6 +81,7 @@ module.exports = grammar({
 
     procedure: $ => seq(
       'proc', $.id,
+      optional($.cc),
       optional($.signature),
       optional($.vars),
       choice($.block, $.asm)
@@ -93,6 +94,8 @@ module.exports = grammar({
     ),
     decl: $ => seq($.idList, $.annot),
     annot: $ => seq(':', $.type),
+
+    cc: $ => seq('<', $.id, '>'),
 
     signature: $ => seq($.args, optional($.rets)),
     args: $ => seq(
